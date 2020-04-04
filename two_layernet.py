@@ -4,11 +4,8 @@ from builtins import range
 from builtins import object
 import numpy as np
 import matplotlib.pyplot as plt
-try:
-    xrange          # Python 2
-except NameError:
-    xrange = range  # Python 3
 
+xrange = range  # Python 3
 
 
 class TwoLayerNet(object):
