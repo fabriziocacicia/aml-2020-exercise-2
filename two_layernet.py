@@ -23,8 +23,6 @@ class TwoLayerNet(object):
     The outputs of the second fully-connected layer are the scores for each class.
     """
 
-
-
     def __init__(self, input_size, hidden_size, output_size, std=1e-4):
         """
         Initialize the model. Weights are initialized to small random values and
@@ -41,14 +39,12 @@ class TwoLayerNet(object):
         - hidden_size: The number of neurons H in the hidden layer.
         - output_size: The number of classes C.
         """
-        
+
         self.params = {}
         self.params['W1'] = std * np.random.randn(input_size, hidden_size)
         self.params['b1'] = np.zeros(hidden_size)
         self.params['W2'] = std * np.random.randn(hidden_size, output_size)
         self.params['b2'] = np.zeros(output_size)
-
-
 
     def loss(self, X, y=None, reg=0.0):
         """
@@ -73,51 +69,45 @@ class TwoLayerNet(object):
         - grads: Dictionary mapping parameter names to gradients of those parameters
           with respect to the loss function; has the same keys as self.params.
         """
-        
+
         # Unpack variables from the params dictionary
         W1, b1 = self.params['W1'], self.params['b1']
-        W2, b2 = self.params['W2'], self.params['b2'] #shapes 10,3 -- 3
+        W2, b2 = self.params['W2'], self.params['b2']  # shapes 10,3 -- 3
         N, D = X.shape
 
         # Compute the forward pass
         scores = 0.
-        
+
         #############################################################################
         # TODO: Perform the forward pass, computing the class probabilities for the #
         # input. Store the result in the scores variable, which should be an array  #
         # of shape (N, C).                                                          #
         #############################################################################
-        
-        # *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
 
-        
+        # *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
 
         pass
 
         # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
 
-
         # If the targets are not given then jump out, we're done
         if y is None:
             return scores
 
-
         # Compute the loss
         loss = 0.
-        
+
         #############################################################################
         # TODO: Finish the forward pass, and compute the loss. This should include  #
         # both the data loss and L2 regularization for W1 and W2. Store the result  #
         # in the variable loss, which should be a scalar. Use the Softmax           #
         # classifier loss.                                                          #
         #############################################################################
-        
+
         # Implement the loss for the softmax output layer
-        
+
         # *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
-        
-        
-        
+
         pass
 
         # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
@@ -132,16 +122,12 @@ class TwoLayerNet(object):
         ##############################################################################
 
         # *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
-        
-        
 
         pass
 
         # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
 
         return loss, grads
-
-
 
     def train(self, X, y, X_val, y_val,
               learning_rate=1e-3, learning_rate_decay=0.95,
@@ -164,10 +150,9 @@ class TwoLayerNet(object):
         - batch_size: Number of training examples to use per step.
         - verbose: boolean; if true print progress during optimization.
         """
-        
-        num_train = X.shape[0]
-        iterations_per_epoch = max( int(num_train // batch_size), 1)
 
+        num_train = X.shape[0]
+        iterations_per_epoch = max(int(num_train // batch_size), 1)
 
         # Use SGD to optimize the parameters in self.model
         loss_history = []
@@ -182,13 +167,11 @@ class TwoLayerNet(object):
             # TODO: Create a random minibatch of training data and labels, storing  #
             # them in X_batch and y_batch respectively.                             #
             #########################################################################
-            
+
             # *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
-            
-            
-            
+
             pass
-        
+
             # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
 
             # Compute loss and gradients using the current minibatch
@@ -201,13 +184,11 @@ class TwoLayerNet(object):
             # using stochastic gradient descent. You'll need to use the gradients   #
             # stored in the grads dictionary defined above.                         #
             #########################################################################
-            
+
             # *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
-            
-            
-            
+
             pass
-        
+
             # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
 
             if verbose and it % 100 == 0:
@@ -225,12 +206,10 @@ class TwoLayerNet(object):
                 learning_rate *= learning_rate_decay
 
         return {
-          'loss_history': loss_history,
-          'train_acc_history': train_acc_history,
-          'val_acc_history': val_acc_history,
+            'loss_history': loss_history,
+            'train_acc_history': train_acc_history,
+            'val_acc_history': val_acc_history,
         }
-
-
 
     def predict(self, X):
         """
@@ -252,15 +231,11 @@ class TwoLayerNet(object):
         ###########################################################################
         # TODO: Implement this function; it should be VERY simple!                #
         ###########################################################################
-        
+
         # *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
-
-
 
         pass
 
         # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
 
         return y_pred
-
-
