@@ -125,7 +125,16 @@ class TwoLayerNet(object):
         # Implement the loss for the softmax output layer
 
         # *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
+        def cross_entropy(probs, ys):
+            one_hot_y = np.zeros_like(probs)
+            one_hot_y[np.arange(ys.size), ys] = 1
+            return -one_hot_y*np.log(probs)
 
+        c_e = cross_entropy(a3, y)
+        data_loss = 1/N*np.sum(c_e)
+        regularization = reg*(np.linalg.norm(W1)**2+np.linalg.norm(W2)**2)
+
+        loss = data_loss + regularization
         pass
 
         # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
