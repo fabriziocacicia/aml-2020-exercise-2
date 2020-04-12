@@ -40,11 +40,12 @@ class TwoLayerNet(object):
         - output_size: The number of classes C.
         """
 
-        self.params = {}
-        self.params['W1'] = std * np.random.randn(input_size, hidden_size)
-        self.params['b1'] = np.zeros(hidden_size)
-        self.params['W2'] = std * np.random.randn(hidden_size, output_size)
-        self.params['b2'] = np.zeros(output_size)
+        self.params = {
+            'W1': std * np.random.randn(input_size, hidden_size),
+            'b1': np.zeros(hidden_size),
+            'W2': std * np.random.randn(hidden_size, output_size),
+            'b2': np.zeros(output_size)
+        }
 
     def loss(self, X, y=None, reg=0.0):
         """
@@ -86,6 +87,23 @@ class TwoLayerNet(object):
 
         # *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
 
+        def relu(x):
+            return np.maximum(0, x)
+
+        def softmax(x):
+            exp = np.exp(x)
+            sum_exp = np.sum(exp, axis=1)
+
+            output = np.divide(exp.T, sum_exp)
+            return output.T
+
+        a1 = X
+        z2 = np.dot(a1, W1) + b1
+        a2 = relu(z2)
+        z3 = np.dot(a2, W2) + b2
+        a3 = softmax(z3)
+        scores = a3
+
         pass
 
         # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
@@ -107,7 +125,16 @@ class TwoLayerNet(object):
         # Implement the loss for the softmax output layer
 
         # *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
+        def cross_entropy(probs, ys):
+            one_hot_y = np.zeros_like(probs)
+            one_hot_y[np.arange(ys.size), ys] = 1
+            return -one_hot_y*np.log(probs)
 
+        c_e = cross_entropy(a3, y)
+        data_loss = 1/N*np.sum(c_e)
+        regularization = reg*(np.linalg.norm(W1)**2+np.linalg.norm(W2)**2)
+
+        loss = data_loss + regularization
         pass
 
         # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
