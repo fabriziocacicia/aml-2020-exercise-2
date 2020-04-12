@@ -132,3 +132,6 @@ dmypy.json
 
 # Jetbrains IDE
 .idea
+
+# Datasets folder
+datasets
