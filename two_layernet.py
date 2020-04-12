@@ -149,6 +149,32 @@ class TwoLayerNet(object):
         ##############################################################################
 
         # *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
+        delta = np.zeros((N, b2.size))
+        delta[np.arange(N), y] = 1
+
+        dJ_dz3 = 1/N*(a3-delta)
+        dz3_dW2 = a2.T
+        dJ_dW2 = np.dot(dz3_dW2, dJ_dz3) + 2 * reg * W2
+
+        grads['W2'] = dJ_dW2
+
+        grads_b2 = np.sum(dJ_dz3, axis=0)
+        grads['b2'] = grads_b2
+
+        dz3_da2 = W2.T
+
+        dz2_dw1 = a1.T
+
+        dJ_da2 = np.dot(dJ_dz3, dz3_da2)
+
+        dJ_dz2 = dJ_da2.copy()
+        dJ_dz2[z2 < 0] = 0
+
+        dJ_dW1 = np.dot(dz2_dw1, dJ_dz2) + 2 * reg * W1
+        grads['W1'] = dJ_dW1
+
+        grad_b1 = np.sum(dJ_dz2, axis=0)
+        grads['b1'] = grad_b1
 
         pass
 
