@@ -222,6 +222,12 @@ class TwoLayerNet(object):
             #########################################################################
 
             # *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
+            if num_train < batch_size:
+                batch_size = num_train
+            random_samples_ids = np.random.choice(num_train, batch_size)
+
+            X_batch = X_batch[random_samples_ids]
+            y_batch = y_batch[random_samples_ids]
 
             pass
 
