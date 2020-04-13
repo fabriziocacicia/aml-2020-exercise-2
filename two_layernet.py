@@ -245,6 +245,10 @@ class TwoLayerNet(object):
             #########################################################################
 
             # *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
+            for param_name in grads:
+                v = -learning_rate*grads[param_name]
+                self.params[param_name] += v
+                pass
 
             pass
 
