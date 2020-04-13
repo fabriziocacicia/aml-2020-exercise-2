@@ -222,13 +222,31 @@ class TwoLayerNet(object):
             #########################################################################
 
             # *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
-            if num_train < batch_size:
-                batch_size = num_train
-            random_samples_ids = np.random.choice(num_train, batch_size)
+            def get_shuffled(X_, y_):
+                import random
+                random_samples_ids = random.sample(range(num_train), num_train)
 
-            X_batch = X_batch[random_samples_ids]
-            y_batch = y_batch[random_samples_ids]
+                return X_[random_samples_ids], y_[random_samples_ids]
 
+            # At each epoch
+            if it % iterations_per_epoch == 0:
+                # Shuffle the training data
+                shuffled_X, shuffled_y = get_shuffled(X, y)
+
+                # Reset the interval every new epoch
+                from_ = 0
+                to_ = batch_size
+            else:
+                # Slide the interval window of a 'batch_size' step
+                from_ += batch_size
+                to_ += batch_size
+
+            # This is to handle the last batch
+            to_ = min(to_, num_train)
+
+            # Get the current batch
+            X_batch = shuffled_X[from_:to_]
+            y_batch = shuffled_y[from_:to_]
             pass
 
             # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
