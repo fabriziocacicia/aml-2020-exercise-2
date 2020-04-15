@@ -114,6 +114,10 @@ class MultiLayerPerceptron(nn.Module):
 
         # *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
 
+        layers.append(torch.nn.Linear(input_size, hidden_layers[0]))
+        layers.append(torch.nn.ReLU())
+        layers.append(torch.nn.Linear(hidden_layers[0], num_classes))
+
         # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
 
         # Enter the layers into nn.Sequential, so the model may "see" them
@@ -129,7 +133,7 @@ class MultiLayerPerceptron(nn.Module):
         #################################################################################
 
         # *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
-
+        out = self.layers(x)
         # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
 
         return out
