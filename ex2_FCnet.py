@@ -275,9 +275,28 @@ best_net = None # store the best model into this
 
 # *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
 
+best_net = TwoLayerNet(input_size, 180, num_classes)
+best_stats = best_net.train(X_train, y_train, X_val, y_val,
+               num_iters=20000, batch_size=200,
+               learning_rate=2e-3, learning_rate_decay=0.95,
+               reg=0.25, verbose=False)
 
 
-pass
+plt.figure(3)
+plt.subplot(2, 1, 1)
+plt.plot(best_stats['loss_history'])
+plt.title('Loss history')
+plt.xlabel('Iteration')
+plt.ylabel('Loss')
+
+plt.subplot(2, 1, 2)
+plt.plot(best_stats['train_acc_history'], label='train')
+plt.plot(best_stats['val_acc_history'], label='val')
+plt.title('Classification accuracy history')
+plt.xlabel('Epoch')
+plt.ylabel('Classification accuracy')
+plt.legend()
+plt.show()
 
 # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
 
