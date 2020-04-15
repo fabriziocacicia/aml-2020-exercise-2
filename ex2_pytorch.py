@@ -26,11 +26,11 @@ print('Using device: %s' % device)
 # Hyper-parameters
 # --------------------------------
 input_size = 32 * 32 * 3
-hidden_size = [50]
+hidden_size = [180, 180, 180, 180]
 num_classes = 10
-num_epochs = 10
-batch_size = 200
-learning_rate = 1e-3
+num_epochs = 50
+batch_size = 500
+learning_rate = 1e-2
 learning_rate_decay = 0.95
 reg = 0.001
 num_training = 49000
@@ -114,9 +114,18 @@ class MultiLayerPerceptron(nn.Module):
 
         # *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
 
-        layers.append(torch.nn.Linear(input_size, hidden_layers[0]))
-        layers.append(torch.nn.ReLU())
-        layers.append(torch.nn.Linear(hidden_layers[0], num_classes))
+        layers.append(nn.Linear(input_size, hidden_layers[0]))
+        layers.append(nn.BatchNorm1d(num_features=hidden_layers[0]))
+        layers.append(nn.ReLU())
+        layers.append(nn.Dropout(p=0.4))
+
+        for hidden_layer in hidden_layers:
+            layers.append(nn.Linear(hidden_layer, hidden_layer))
+            layers.append(nn.BatchNorm1d(num_features=hidden_layer))
+            layers.append(nn.ReLU())
+            layers.append(nn.Dropout(p=0.4))
+
+        layers.append(nn.Linear(hidden_layers[0], num_classes))
 
         # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
 
@@ -254,7 +263,10 @@ else:
             # 2. Get the most confident predicted class        #
             ####################################################
             # *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
-
+            # *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
+            x = images.view(-1, input_size)
+            out = model(x)
+            _, predicted = torch.max(out, 1)
             # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
             total += labels.size(0)
             correct += (predicted == labels).sum().item()
