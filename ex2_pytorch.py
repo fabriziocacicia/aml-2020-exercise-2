@@ -171,6 +171,15 @@ if train:
             # Use examples in https://pytorch.org/tutorials/beginner/pytorch_with_examples.html
             #################################################################################
             # *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
+            x = images.view(-1, input_size)
+            y_pred = model(x)
+
+            loss = criterion(y_pred, labels)
+
+            optimizer.zero_grad()
+            loss.backward()
+            optimizer.step()
+
 
             # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
 
@@ -193,6 +202,9 @@ if train:
                 # 2. Get the most confident predicted class        #
                 ####################################################
                 # *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
+                x = images.view(-1, input_size)
+                out = model(x)
+                _, predicted = torch.max(out, 1)
 
                 # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
                 total += labels.size(0)
